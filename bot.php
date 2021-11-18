@@ -33,3 +33,4 @@ function sendMessage($chat_id, $response) {
     $url = $GLOBALS['website'].'/sendMessage?chat_id='.$chat_id.'&parse_mode=HTML&text='.urlencode($response);
     file_get_contents($url);
 }
+?>
