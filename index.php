@@ -9,9 +9,14 @@ $update = json_decode($input, true);
 
 $chat_id = $update['message']['chat']['id'];
 $message = $update['message']['text'];
+$first_name = $update['message']['from']['first_name'];
 
 switch($message) {
-    case '/start':
+    case '/inicio':
+        $response = 'Bienvenido '.$first_name.' al bot de la comunidad de telegram';
+        sendMessage($chat_id, $response);
+        break;
+    case '/frases':
         $arrays = array(
             1 => "Nada nuevo hay bajo el sol, pero cuántas cosas viejas hay que no conocemos.",
             2 => "El verdadero amigo es aquel que está a tu lado cuando preferiría estar en otra parte.",
@@ -29,6 +34,10 @@ switch($message) {
         $response = 'Ingresa el nombre de la ciudad';
         sendMessage($chat_id, $response);
         break;
+    case '/persona':
+        $response = 'Ingresa el nombre de la persona';
+        sendMessage($chat_id, $response);
+        break;
     default:
         $response = 'No te entiendo';
         sendMessage($chat_id, $response);
@@ -39,4 +48,3 @@ function sendMessage($chat_id, $response) {
     $url = $GLOBALS['website'].'/sendMessage?chat_id='.$chat_id.'&parse_mode=HTML&text='.urlencode($response);
     file_get_contents($url);
 }
-?>
