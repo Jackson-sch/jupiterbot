@@ -12,7 +12,8 @@ $message = $update['message']['text'];
 
 switch($message) {
     case '/start':
-        $response = 'Bienvenido al bot de la comunidad de telegram';
+        $array = ['Hola Bienvenido', 'Buenos Días', 'Buenas Tardes', 'Buenas Noches'];
+        $response = $array[rand(0, count($array)-1)];
         sendMessage($chat_id, $response);
         break;
     case '/help':
