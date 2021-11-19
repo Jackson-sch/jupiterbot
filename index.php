@@ -46,7 +46,7 @@ curl_close($curl);
 
 switch($message) {
     case '/start':
-        $response = 'Bienvenido '.$first_name.' al bot de la comunidad de telegram';
+        $response = 'Bienvenido '.$first_name.' al bot de la comunidad de Jupiter @jackson';
         sendMessage($chat_id, $response);
         break;
     case '/frases':
@@ -75,7 +75,7 @@ switch($message) {
         // buscar persona por dni desde una api externa usando curl
         
         if ($message) {
-            $response = 'Nombre: '.$persona['nombre'].'***'.' DNI: '.$persona['numeroDocumento'];
+            $response = 'Nombre: '.$persona['nombres'].'***'.' DNI: '.$persona['numeroDocumento'];
         }else{
             $response = 'No se encontraron datos';
         }
