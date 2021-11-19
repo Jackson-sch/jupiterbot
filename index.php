@@ -35,7 +35,7 @@ switch($message) {
         $response = 'Ingresa el nombre de la ciudad';
         sendMessage($chat_id, $response);
         break;
-    case '/persona':
+    case '/dni':
         $response = 'Ingresa el Numero de DNI';
         sendMessage($chat_id, $response);
         break;
@@ -76,7 +76,7 @@ switch($message) {
         }
         sendMessage($chat_id, $response);
         break;
-    case '/Consulta RUC':
+    case '/ruc':
         $response = 'Ingresa el RUC';
         sendMessage($chat_id, $response);
         break;
@@ -110,7 +110,7 @@ switch($message) {
         curl_close($curl);
 
         if ($message = $ruc) {
-            $response = 'RUC: '.$ruc['data']['numeroDocumento'].'***'.' Nombre: '.$ruc['data']['nombre'].'***'.' Estado : '.$ruc['data']['estado'].'***'.' Condicion: '.$ruc['data']['condicion'];
+            $response = 'RUC: '.$ruc['numeroDocumento'].'***'.' Nombre: '.$ruc['nombre'].'***'.' Estado : '.$ruc['estado'].'***'.' Condicion: '.$ruc['condicion'];
         }else{
             $response = 'No se encontraron datos';
         }
