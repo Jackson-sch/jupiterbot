@@ -14,7 +14,7 @@ $first_name = $update['message']['from']['first_name'];
 
 // Datos
 $token = 'apis-token-1.aTSI1U7KEuT-6bbbCguH-4Y8TI6KS73N';
-$dni = '46027897';
+$dni = '73799763';
 
 // Iniciar llamada a API
 $curl = curl_init();
