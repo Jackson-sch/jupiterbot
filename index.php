@@ -1,5 +1,8 @@
 <?php
+// Conexion base de datos MongoDB
 
+$conn = new MongoDB\Client('mongodb+srv://admin:admin123@cluster0.32pgj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+$db = $conn->interacion;
 
 
 
@@ -41,9 +44,9 @@ switch($message) {
     case '/laboratorio':
         // buscar laboratorios en la base de datos mongoDB coleccion laboratorios
         $laboratorios = $db->laboratorio;
-        $laboratorio = $laboratorios->findOne(['nombre' => $message]);
+        $laboratorio = $laboratorios->findOne(['LABORATORIO' => $message]);
         if($laboratorio) {
-            $response = 'El laboratorio '.$laboratorio['nombre'].' se encuentra en '.$laboratorio['ubicacion'].' y tiene una capacidad de '.$laboratorio['capacidad'].' personas';
+            $response = 'El laboratorio '.$laboratorio['LABORATORIO'].' se encuentra en: ';
         } else {
             $response = 'No se encontró el laboratorio';
         }
