@@ -47,6 +47,16 @@ switch($message) {
     case '/dni':
         // buscar persona por dni desde una api externa usando curl
         $response = 'Ingresa el dni de la persona';
+        $dni = $message;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://dni.optimizeperu.com/api/persons/$dni");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $respon = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }else $decoded = json_decode($respon, true);
+        var_dump($decoded);
+        curl_close($ch);
         if (isset($decoded['dni'])) {
             $response = 'Nombre: '.$decoded['name'].', Apellido: '.$decoded['last_name'].', DNI: '.$decoded['dni'];
         }
