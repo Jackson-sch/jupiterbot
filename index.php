@@ -69,10 +69,50 @@ switch($message) {
         var_dump($persona);
         curl_close($curl);
         
-        if ($message == ' ') {
-            $response = ' ';
-        }else{
+        if ($message = $persona['data']['numeroDocumento']) {
             $response = 'Nombre: '.$persona['nombre'].'***'.' DNI: '.$persona['numeroDocumento'];
+        }else{
+            $response = 'No se encontraron datos';
+        }
+        sendMessage($chat_id, $response);
+        break;
+    case '/Consulta RUC':
+        $response = 'Ingresa el RUC';
+        sendMessage($chat_id, $response);
+        break;
+    case $message:
+        // Datos
+        $token = 'apis-token-1.aTSI1U7KEuT-6bbbCguH-4Y8TI6KS73N';
+        $ruc = $message;
+        // Iniciar llamada a API
+        $curl = curl_init();
+        // Buscar ruc sunat
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://api.apis.net.pe/v1/ruc?numero=' . $ruc,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Referer: http://apis.net.pe/api-ruc',
+            'Authorization: Bearer ' . $token
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        if (curl_errno($curl)) {
+            echo 'Error:' . curl_error($curl);
+        }else $ruc = json_decode($response, true);
+        var_dump($ruc);
+        curl_close($curl);
+
+        if ($message = $ruc['data']['numeroDocumento']) {
+            $response = 'RUC: '.$ruc['data']['numeroDocumento'].'***'.' Nombre: '.$ruc['data']['nombre'].'***'.' Estado : '.$ruc['data']['estado'].'***'.' Condicion: '.$ruc['data']['condicion'];
+        }else{
+            $response = 'No se encontraron datos';
         }
         sendMessage($chat_id, $response);
         break;
