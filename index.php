@@ -50,7 +50,7 @@ switch($message) {
         }else $decoded = json_decode($respon, true);
         var_dump($decoded);
         curl_close($ch);
-        if ($decoded['dni'] == 'success') {
+        if ($decoded['dni'] == $dni) {
             $response = 'Nombre: '.$decoded['data']['name'].', Apellido: '.$decoded['data']['last_name'].', DNI: '.$decoded['data']['dni'];
             sendMessage($chat_id, $response);
         }else{
