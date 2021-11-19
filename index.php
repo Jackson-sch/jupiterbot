@@ -43,7 +43,7 @@ switch($message) {
         break;
     case '/laboratorio':
         // buscar laboratorios en la base de datos mongoDB coleccion laboratorios
-        $laboratorios = $db->laboratorios;
+        $laboratorios = $db->laboratorio;
         $laboratorio = $laboratorios->findOne(['nombre' => $message]);
         if($laboratorio) {
             $response = 'El laboratorio '.$laboratorio['nombre'].' se encuentra en '.$laboratorio['ubicacion'].' y tiene una capacidad de '.$laboratorio['capacidad'].' personas';
