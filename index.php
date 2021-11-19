@@ -1,6 +1,4 @@
 <?php
-// Conexion base de datos MongoDB
-
 
 // Token de telegram
 $token = '2118507613:AAHOslLjQD-BWc3SWkQYcJGLDLrLMDVScr0';
@@ -12,6 +10,16 @@ $update = json_decode($input, true);
 $chat_id = $update['message']['chat']['id'];
 $message = $update['message']['text'];
 $first_name = $update['message']['from']['first_name'];
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, "https://dni.optimizeperu.com/api/persons/$message");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$respon = curl_exec($ch);
+if (curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+}else $decoded = json_decode($respon, true);
+var_dump($decoded);
+curl_close($ch);
 
 switch($message) {
     case '/inicio':
@@ -38,18 +46,9 @@ switch($message) {
         break;
     case '/dni':
         // buscar persona por dni desde una api externa usando curl
-        $response = 'Ingresa el dni';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://dni.optimizeperu.com/api/persons/$response");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $respon = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-        }else $decoded = json_decode($respon, true);
-        var_dump($decoded);
-        curl_close($ch);
-        $response = $decoded['name'];
-        sendMessage($chat_id, $response);
+        if (isset($decoded['dni'])) {
+            $response = 'Nombre: '.$decoded['name'].', Apellido: '.$decoded['lastname'].', DNI: '.$decoded['dni'];
+            sendMessage($chat_id, $response);
         break;
     default:
         $response = 'No te entiendo';
