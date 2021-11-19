@@ -37,14 +37,7 @@ switch($message) {
         sendMessage($chat_id, $response);
         break;
     case '/laboratorio':
-        // buscar laboratorios en la base de datos mongoDB coleccion laboratorios
-        $laboratorios = $db->laboratorio;
-        $laboratorio = $laboratorios->findOne(['LABORATORIO' => $message]);
-        if($laboratorio) {
-            $response = 'El laboratorio '.$laboratorio['LABORATORIO'].' se encuentra en: ';
-        } else {
-            $response = 'No se encontró el laboratorio';
-        }
+        $response = 'No se encontró el laboratorio';
         sendMessage($chat_id, $response);
         break;
     default:
