@@ -45,7 +45,7 @@ var_dump($persona);
 curl_close($curl);
 
 switch($message) {
-    case '/inicio':
+    case '/start':
         $response = 'Bienvenido '.$first_name.' al bot de la comunidad de telegram';
         sendMessage($chat_id, $response);
         break;
