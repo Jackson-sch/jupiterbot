@@ -14,7 +14,7 @@ $first_name = $update['message']['from']['first_name'];
 
 // Datos
 $token = 'apis-token-1.aTSI1U7KEuT-6bbbCguH-4Y8TI6KS73N';
-$dni = '73799763';
+$dni = '46027897';
 
 // Iniciar llamada a API
 $curl = curl_init();
@@ -37,10 +37,12 @@ curl_setopt_array($curl, array(
 
 $response = curl_exec($curl);
 
-curl_close($curl);
-// Datos listos para usar
-$persona = json_decode($response);
+if (curl_errno($curl)) {
+    echo 'Error:' . curl_error($curl);
+}else $persona = json_decode($response, true);
 var_dump($persona);
+
+curl_close($curl);
 
 switch($message) {
     case '/inicio':
