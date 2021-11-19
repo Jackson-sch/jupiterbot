@@ -35,7 +35,7 @@ switch($message) {
         $response = 'Ingresa el nombre de la ciudad';
         sendMessage($chat_id, $response);
         break;
-    case '/persona':
+    case '/dni':
         $response = 'Ingresa el Numero de DNI';
         sendMessage($chat_id, $response);
         break;
@@ -76,7 +76,7 @@ switch($message) {
         }
         sendMessage($chat_id, $response);
         break;
-    case '/Consulta RUC':
+    case '/ruc':
         $response = 'Ingresa el RUC';
         sendMessage($chat_id, $response);
         break;
