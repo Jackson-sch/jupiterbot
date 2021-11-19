@@ -46,9 +46,11 @@ switch($message) {
         break;
     case '/dni':
         // buscar persona por dni desde una api externa usando curl
+        $response = 'Ingresa el dni de la persona';
         if (isset($decoded['dni'])) {
-            $response = 'Nombre: '.$decoded['name'].', Apellido: '.$decoded['lastname'].', DNI: '.$decoded['dni'];
-            sendMessage($chat_id, $response);
+            $response = 'Nombre: '.$decoded['name'].', Apellido: '.$decoded['last_name'].', DNI: '.$decoded['dni'];
+        }
+        sendMessage($chat_id, $response);
         break;
     default:
         $response = 'No te entiendo';
