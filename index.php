@@ -39,43 +39,7 @@ switch($message) {
         $response = 'Ingresa el Numero de DNI';
         sendMessage($chat_id, $response);
         break;
-    case $message:
-        // buscar persona por dni desde una api externa usando curl
 
-        // Datos DNI
-        $token = 'apis-token-1.aTSI1U7KEuT-6bbbCguH-4Y8TI6KS73N';
-        $dni = $message;
-        // Iniciar llamada a API
-        $curl = curl_init();
-        // Buscar dni
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://api.apis.net.pe/v1/dni?numero=' . $dni,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 2,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'GET',
-        CURLOPT_HTTPHEADER => array(
-            'Referer: https://apis.net.pe/consulta-dni-api',
-            'Authorization: Bearer ' . $token
-        ),
-        ));
-        $response = curl_exec($curl);
-        if (curl_errno($curl)) {
-            echo 'Error:' . curl_error($curl);
-        }else $persona = json_decode($response, true);
-        var_dump($persona);
-        curl_close($curl);
-        
-        if ($message = $persona) {
-            $response = 'Nombre: '.$persona['nombre'].'***'.' DNI: '.$persona['numeroDocumento'];
-        }else{
-            $response = 'No se encontraron datos';
-        }
-        sendMessage($chat_id, $response);
-        break;
     case '/ruc':
         $response = 'Ingresa el RUC';
         sendMessage($chat_id, $response);
