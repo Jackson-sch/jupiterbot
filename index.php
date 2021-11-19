@@ -37,6 +37,7 @@ switch($message) {
         sendMessage($chat_id, $response);
         break;
     case '/persona':
+        $response = 'Ingresa el Numero de DNI';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://reqres.in/api/users/2");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -48,9 +49,9 @@ switch($message) {
         curl_close($ch);
 
         // buscar persona por dni desde una api externa usando curl
-        $response = 'Ingresa el Numero de DNI';
+        
         if ($message) {
-            $response = $decoded['data']['first_name'].' Apellido: '.$decoded['data']['last_name'].' DNI: '.$decoded['data']['id'];
+            $response = 'Nombre: '.$decoded['data']['first_name'].' Apellido: '.$decoded['data']['last_name'].' DNI: '.$decoded['data']['id'];
         }else{
             $response = 'No se encontraron datos';
         }
