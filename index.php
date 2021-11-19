@@ -13,7 +13,7 @@ $first_name = $update['message']['from']['first_name'];
 
 
 switch($message) {
-    case '/inicio':
+    case '/start':
         $response = 'Bienvenido '.$first_name.' al bot de la comunidad de telegram';
         sendMessage($chat_id, $response);
         break;
