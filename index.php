@@ -37,10 +37,8 @@ switch($message) {
         sendMessage($chat_id, $response);
         break;
     case '/persona':
-        $response = 'Ingresa el dni de la persona';
-        sendMessage($chat_id, $response);
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://api.mercadolibre.com/users/226384143/");
+        curl_setopt($ch, CURLOPT_URL, "https://reqres.in/api/users/2");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $respon = curl_exec($ch);
         if (curl_errno($ch)) {
@@ -48,12 +46,13 @@ switch($message) {
         }else $decoded = json_decode($respon, true);
         var_dump($decoded);
         curl_close($ch);
-        if ($decoded['dni'] == $dni) {
-            $response = 'Nombre: '.$decoded['data']['nickname'];
-            sendMessage($chat_id, $response);
+
+        // buscar persona por dni desde una api externa usando curl
+        $response = 'Ingresa el Numero de DNI';
+        if ($message) {
+            $response = $decoded['data']['first_name'].' Apellido: '.$decoded['data']['last_name'].' DNI: '.$decoded['data']['id'];
         }else{
-            $response = 'No se encontro la persona';
-            sendMessage($chat_id, $response);
+            $response = 'No se encontraron datos';
         }
         sendMessage($chat_id, $response);
         break;
