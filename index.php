@@ -36,12 +36,11 @@ switch($message) {
         $response = 'Ingresa el nombre de la ciudad';
         sendMessage($chat_id, $response);
         break;
-    case '/dni':
-        // buscar persona por dni desde una api externa usando curl
+    case '/persona':
         $response = 'Ingresa el dni de la persona';
-        
+        $dni = $message;
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://dni.optimizeperu.com/api/persons/73799763");
+        curl_setopt($ch, CURLOPT_URL, "https://dni.optimizeperu.com/api/persons/$dni");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $respon = curl_exec($ch);
         if (curl_errno($ch)) {
@@ -49,8 +48,10 @@ switch($message) {
         }else $decoded = json_decode($respon, true);
         var_dump($decoded);
         curl_close($ch);
-        if (isset($decoded['dni'])) {
+        if ($decoded == $message) {
             $response = 'Nombre: '.$decoded['name'].', Apellido: '.$decoded['last_name'].', DNI: '.$decoded['dni'];
+        } else {
+            $response = 'No se encontro la persona';
         }
         sendMessage($chat_id, $response);
         break;
