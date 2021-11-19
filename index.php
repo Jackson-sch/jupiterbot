@@ -37,12 +37,11 @@ switch($message) {
         sendMessage($chat_id, $response);
         break;
     case '/persona':
-       // buscar persona por dni desde una api externa usando curl
+        // buscar persona por dni desde una api externa usando curl
         $response = 'Ingresa el dni de la persona';
         sendMessage($chat_id, $response);
-        $dni = $message;
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://dni.optimizeperu.com/api/persons/$dni");
+        curl_setopt($ch, CURLOPT_URL, "https://dni.optimizeperu.com/api/persons/73799763");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $respon = curl_exec($ch);
         if (curl_errno($ch)) {
