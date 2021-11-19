@@ -75,7 +75,7 @@ switch($message) {
     case $message:
         // buscar persona por dni desde una api externa usando curl
         
-        if ($message) {
+        if ($message == $message) {
             $response = 'Nombre: '.$persona['nombres'].'***'.' DNI: '.$persona['numeroDocumento'];
         }else{
             $response = 'No se encontraron datos';
