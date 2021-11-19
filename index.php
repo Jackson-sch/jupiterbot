@@ -46,7 +46,8 @@ curl_close($curl);
 
 switch($message) {
     case '/start':
-        $response = 'Bienvenido '.$first_name.' al bot de la comunidad de Jupiter @jackson';
+        $response = 'Bienvenido '.$first_name.' al bot de la comunidad de Jupiter https://t.me/joinchat/EQNmXPScCssyNWMx
+';
         sendMessage($chat_id, $response);
         break;
     case '/frases':
