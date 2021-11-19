@@ -1,11 +1,6 @@
 <?php
 // Conexion base de datos MongoDB
 
-$conn = new MongoDB\Client('mongodb+srv://admin:admin123@cluster0.32pgj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
-$db = $conn->interacion;
-
-
-
 
 // Token de telegram
 $token = '2118507613:AAHOslLjQD-BWc3SWkQYcJGLDLrLMDVScr0';
