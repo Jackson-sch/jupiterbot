@@ -12,6 +12,35 @@ $message = $update['message']['text'];
 $first_name = $update['message']['from']['first_name'];
 
 
+// Datos
+$token = 'apis-token-1.aTSI1U7KEuT-6bbbCguH-4Y8TI6KS73N';
+$dni = '73799763';
+
+// Iniciar llamada a API
+$curl = curl_init();
+
+// Buscar dni
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://api.apis.net.pe/v1/dni?numero=' . $dni,
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 2,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Referer: https://apis.net.pe/consulta-dni-api',
+    'Authorization: Bearer ' . $token
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+// Datos listos para usar
+$persona = json_decode($response);
+var_dump($persona);
 
 switch($message) {
     case '/inicio':
@@ -38,20 +67,11 @@ switch($message) {
         break;
     case '/persona':
         $response = 'Ingresa el Numero de DNI';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://reqres.in/api/users/2");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $respon = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-        }else $decoded = json_decode($respon, true);
-        var_dump($decoded);
-        curl_close($ch);
 
         // buscar persona por dni desde una api externa usando curl
         
         if ($message) {
-            $response = 'Nombre: '.$decoded['data']['first_name'].'==='.' Apellido: '.$decoded['data']['last_name'].'==='.' DNI: '.$decoded['data']['id'];
+            $response = 'Nombre: '.$persona['nombre'].'***'.' DNI: '.$persona['numeroDocumento'];
         }else{
             $response = 'No se encontraron datos';
         }
