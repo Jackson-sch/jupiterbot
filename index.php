@@ -14,7 +14,7 @@ $first_name = $update['message']['from']['first_name'];
 
 switch($message) {
     case '/start':
-        $response = 'Bienvenido '.$first_name.' al bot de la comunidad de telegram';
+        $response = 'Bienvenido '.$first_name.' al bot de la comunidad de Jupiter unete https://t.me/joinchat/EQNmXPScCssyNWMx';
         sendMessage($chat_id, $response);
         break;
     case '/frases':
