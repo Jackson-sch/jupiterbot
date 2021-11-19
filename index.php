@@ -75,10 +75,10 @@ switch($message) {
     case $message:
         // buscar persona por dni desde una api externa usando curl
         
-         if ($message = ' ') {
-            $response = ' ';
-        }else{
+         if ($message = $message) {
             $response = 'Nombre: '.$persona['nombre'].'***'.' DNI: '.$persona['numeroDocumento'];
+        }else{
+            $response = ' ';
         }
         sendMessage($chat_id, $response);
         break;
