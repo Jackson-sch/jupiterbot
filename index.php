@@ -11,15 +11,7 @@ $chat_id = $update['message']['chat']['id'];
 $message = $update['message']['text'];
 $first_name = $update['message']['from']['first_name'];
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "https://dni.optimizeperu.com/api/persons/73799763");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$respon = curl_exec($ch);
-if (curl_errno($ch)) {
-    echo 'Error:' . curl_error($ch);
-}else $decoded = json_decode($respon, true);
-var_dump($decoded);
-curl_close($ch);
+
 
 switch($message) {
     case '/inicio':
