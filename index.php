@@ -37,11 +37,10 @@ switch($message) {
         sendMessage($chat_id, $response);
         break;
     case '/persona':
-        // buscar persona por dni desde una api externa usando curl
         $response = 'Ingresa el dni de la persona';
         sendMessage($chat_id, $response);
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://dni.optimizeperu.com/api/persons/73799763");
+        curl_setopt($ch, CURLOPT_URL, "https://api.mercadolibre.com/users/226384143/");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $respon = curl_exec($ch);
         if (curl_errno($ch)) {
@@ -50,7 +49,7 @@ switch($message) {
         var_dump($decoded);
         curl_close($ch);
         if ($decoded['dni'] == $dni) {
-            $response = 'Nombre: '.$decoded['data']['name'].', Apellido: '.$decoded['data']['last_name'].', DNI: '.$decoded['data']['dni'];
+            $response = 'Nombre: '.$decoded['data']['nickname'];
             sendMessage($chat_id, $response);
         }else{
             $response = 'No se encontro la persona';
