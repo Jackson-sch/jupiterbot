@@ -27,95 +27,82 @@ switch($message) {
         $response = $arrays[rand(1,4)];
         sendMessage($chat_id, $response);
         break;
-    case '/help':
-        $response = 'Este bot te ayudara a conocer el clima de una ciudad';
-        sendMessage($chat_id, $response);
-        break;
-    case '/clima':
-        $response = 'Ingresa el nombre de la ciudad';
-        sendMessage($chat_id, $response);
-        break;
     case '/dni':
         $response = 'Ingresa el Numero de DNI';
         sendMessage($chat_id, $response);
-        switch($message) {
-            case $message:
-                // buscar persona por dni desde una api externa usando curl
+        // buscar persona por dni desde una api externa usando curl
+
+        // Datos DNI
+        $token = 'apis-token-1.aTSI1U7KEuT-6bbbCguH-4Y8TI6KS73N';
+        $dni = $message;
+        // Iniciar llamada a API
+        $curl = curl_init();
+        // Buscar dni
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://api.apis.net.pe/v1/dni?numero=' . $dni,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 2,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Referer: https://apis.net.pe/consulta-dni-api',
+            'Authorization: Bearer ' . $token
+        ),
+        ));
+        $response = curl_exec($curl);
+        if (curl_errno($curl)) {
+            echo 'Error:' . curl_error($curl);
+        }else $persona = json_decode($response, true);
+        var_dump($persona);
+        curl_close($curl);
         
-                // Datos DNI
-                $token = 'apis-token-1.aTSI1U7KEuT-6bbbCguH-4Y8TI6KS73N';
-                $dni = $message;
-                // Iniciar llamada a API
-                $curl = curl_init();
-                // Buscar dni
-                curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://api.apis.net.pe/v1/dni?numero=' . $dni,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 2,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
-                    'Referer: https://apis.net.pe/consulta-dni-api',
-                    'Authorization: Bearer ' . $token
-                ),
-                ));
-                $response = curl_exec($curl);
-                if (curl_errno($curl)) {
-                    echo 'Error:' . curl_error($curl);
-                }else $persona = json_decode($response, true);
-                var_dump($persona);
-                curl_close($curl);
-                
-                if ($message = $persona) {
-                    $response = 'Nombre: '.$persona['nombre'].'***'.' DNI: '.$persona['numeroDocumento'];
-                }else{
-                    $response = 'No se encontraron datos';
-                }
-                sendMessage($chat_id, $response);
-                break;
+        if ($message = $persona) {
+            $response = 'Nombre: '.$persona['nombre'].'***'.' DNI: '.$persona['numeroDocumento'];
+        }else{
+            $response = 'No se encontraron datos';
+        }
+        sendMessage($chat_id, $response);
         break;
     case '/ruc':
         $response = 'Ingresa el RUC';
         sendMessage($chat_id, $response);
-        case $message:
-            // Datos
-            $token = 'apis-token-1.aTSI1U7KEuT-6bbbCguH-4Y8TI6KS73N';
-            $ruc = $message;
-            // Iniciar llamada a API
-            $curl = curl_init();
-            // Buscar ruc sunat
-            curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.apis.net.pe/v1/ruc?numero=' . $ruc,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'Referer: http://apis.net.pe/api-ruc',
-                'Authorization: Bearer ' . $token
-            ),
-            ));
-    
-            $response = curl_exec($curl);
-            if (curl_errno($curl)) {
-                echo 'Error:' . curl_error($curl);
-            }else $ruc = json_decode($response, true);
-            var_dump($ruc);
-            curl_close($curl);
-    
-            if ($message = $ruc) {
-                $response = 'RUC: '.$ruc['numeroDocumento'].'***'.' Nombre: '.$ruc['nombre'].'***'.' Estado : '.$ruc['estado'].'***'.' Condicion: '.$ruc['condicion'];
-            }else{
-                $response = 'No se encontraron datos';
-            }
-            sendMessage($chat_id, $response);
-            break;
+        // Datos
+        $token = 'apis-token-1.aTSI1U7KEuT-6bbbCguH-4Y8TI6KS73N';
+        $ruc = $message;
+        // Iniciar llamada a API
+        $curl = curl_init();
+        // Buscar ruc sunat
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://api.apis.net.pe/v1/ruc?numero=' . $ruc,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Referer: http://apis.net.pe/api-ruc',
+            'Authorization: Bearer ' . $token
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        if (curl_errno($curl)) {
+            echo 'Error:' . curl_error($curl);
+        }else $ruc = json_decode($response, true);
+        var_dump($ruc);
+        curl_close($curl);
+
+        if ($message = $ruc) {
+            $response = 'RUC: '.$ruc['numeroDocumento'].'***'.' Nombre: '.$ruc['nombre'].'***'.' Estado : '.$ruc['estado'].'***'.' Condicion: '.$ruc['condicion'];
+        }else{
+            $response = 'No se encontraron datos';
+        }
+        sendMessage($chat_id, $response);
         break;
     default:
         $response = 'No te entiendo';
